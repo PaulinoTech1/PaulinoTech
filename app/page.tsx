@@ -28,18 +28,24 @@ export default function Portfolio() {
               </a>
             
               {/* Desktop Navigation */}
-              <div className="hidden md:flex space-x-8">
+              <div className="hidden lg:flex space-x-6">
                 <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
                   About
                 </a>
                 <a href="/experience" className="text-muted-foreground hover:text-foreground transition-colors">
                   Experience
                 </a>
-                <a href="#deployments" className="text-muted-foreground hover:text-foreground transition-colors">
+                <a href="/deployments" className="text-muted-foreground hover:text-foreground transition-colors">
                   Deployments
                 </a>
                 <a href="/consulting" className="text-muted-foreground hover:text-foreground transition-colors">
                   Consulting
+                </a>
+                <a href="/osint" className="text-muted-foreground hover:text-foreground transition-colors">
+                  OSINT
+                </a>
+                <a href="/ai-tooling" className="text-muted-foreground hover:text-foreground transition-colors">
+                  AI Tooling
                 </a>
                 <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
                   Contact
@@ -48,7 +54,7 @@ export default function Portfolio() {
 
               {/* Mobile Menu Button */}
               <button
-                className="md:hidden p-2 text-foreground"
+                className="lg:hidden p-2 text-foreground"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-menu"
@@ -60,7 +66,7 @@ export default function Portfolio() {
 
             {/* Mobile Navigation Menu */}
             {mobileMenuOpen && (
-              <div id="mobile-menu" className="md:hidden py-4 space-y-1 border-t border-border bg-card" role="menu">
+              <div id="mobile-menu" className="lg:hidden py-4 space-y-1 border-t border-border bg-card" role="menu">
                 <a
                   href="#about"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
@@ -78,7 +84,7 @@ export default function Portfolio() {
                   Experience
                 </a>
                 <a
-                  href="#deployments"
+                  href="/deployments"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
                   role="menuitem"
@@ -92,6 +98,22 @@ export default function Portfolio() {
                   role="menuitem"
                 >
                   Consulting
+                </a>
+                <a
+                  href="/osint"
+                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  OSINT
+                </a>
+                <a
+                  href="/ai-tooling"
+                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                  role="menuitem"
+                >
+                  AI Tooling
                 </a>
                 <a
                   href="#contact"
@@ -120,7 +142,7 @@ export default function Portfolio() {
                   I specialize in IT infrastructure, cybersecurity, and network management for small and medium-sized businesses. 
                   Let&apos;s build resilient systems that protect your business and enable growth.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                   <Button variant="outline" size="lg" asChild>
                     <a href="/vendor-tooling">
                       Vendor Tooling
@@ -129,6 +151,16 @@ export default function Portfolio() {
                   <Button variant="outline" size="lg" asChild>
                     <a href="/managed-os">
                       Managed Operating Systems
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="lg" asChild>
+                    <a href="/osint">
+                      OSINT Resources
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="lg" asChild>
+                    <a href="/ai-tooling">
+                      AI Tooling
                     </a>
                   </Button>
                 </div>
@@ -199,10 +231,13 @@ export default function Portfolio() {
         <section id="deployments" className="py-20 bg-card" aria-labelledby="deployments-heading">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 id="deployments-heading" className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Enterprise Deployments</h2>
+              <h2 id="deployments-heading" className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Deployment Experience</h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Production-grade infrastructure and security implementations for SMBs
+                High-level infrastructure and security work with sensitive production details intentionally withheld
               </p>
+              <Button variant="outline" className="mt-6" asChild>
+                <a href="/deployments">Explore sanitized homelab network topologies</a>
+              </Button>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">

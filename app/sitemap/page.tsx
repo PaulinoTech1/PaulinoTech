@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Home, ArrowLeft, Briefcase, Server, Wrench, Mail } from "lucide-react"
+import { Home, ArrowLeft, Briefcase, Wrench, Search, BrainCircuit } from "lucide-react"
 
 export default function SitemapPage() {
   const sitePages = [
@@ -10,9 +10,9 @@ export default function SitemapPage() {
       pages: [
         { name: 'Home', path: '/', description: 'Main landing page with overview of services' },
         { name: 'About', path: '/#about', description: 'Learn about my journey from healthcare to tech' },
-        { name: 'Deployments', path: '/#deployments', description: 'View enterprise deployment implementations' },
+        { name: 'Deployments', path: '/deployments', description: 'Compare sanitized homelab network topologies by budget, strengths, and weaknesses' },
         { name: 'Consulting', path: '/consulting', description: 'Security consulting services including OSINT and identity protection' },
-        { name: 'Newsletter', path: '/newsletter', description: 'Curated technical articles on cybersecurity, networking, and identity protection' },
+        { name: 'Newsletter', path: '/newsletter', description: 'Current cybersecurity and infrastructure reporting from verified live RSS and Atom feeds' },
         { name: 'Contact', path: '/#contact', description: 'Get in touch via email, GitHub, or LinkedIn' },
       ],
     },
@@ -29,6 +29,20 @@ export default function SitemapPage() {
       pages: [
         { name: 'Vendor Tooling', path: '/vendor-tooling', description: 'Hardware and vendor-specific tools expertise' },
         { name: 'Managed Operating Systems', path: '/managed-os', description: 'Operating systems deployment and management' },
+      ],
+    },
+    {
+      category: 'Security & Intelligence',
+      icon: Search,
+      pages: [
+        { name: 'OSINT Resources', path: '/osint', description: 'Defensive tools for exposure monitoring, credential security, asset context, and network detection' },
+      ],
+    },
+    {
+      category: 'AI & Automation',
+      icon: BrainCircuit,
+      pages: [
+        { name: 'AI Tooling', path: '/ai-tooling', description: 'A regularly reviewed guide to coding agents, research tools, private data, and local models' },
       ],
     },
   ]
@@ -133,12 +147,22 @@ export default function SitemapPage() {
                 </li>
                 <li>
                   <Button variant="outline" asChild>
-                    <a href="/#deployments">Deployments</a>
+                    <a href="/deployments">Deployments</a>
                   </Button>
                 </li>
                 <li>
                   <Button variant="outline" asChild>
                     <a href="/consulting">Consulting</a>
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="outline" asChild>
+                    <a href="/osint">OSINT Resources</a>
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="outline" asChild>
+                    <a href="/ai-tooling">AI Tooling</a>
                   </Button>
                 </li>
                 <li>

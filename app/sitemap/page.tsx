@@ -10,7 +10,7 @@ export default function SitemapPage() {
       pages: [
         { name: 'Home', path: '/', description: 'Main landing page with overview of services' },
         { name: 'About', path: '/#about', description: 'Learn about my journey from healthcare to tech' },
-        { name: 'Deployments', path: '/deployments', description: 'Compare sanitized homelab network topologies by budget, strengths, and weaknesses' },
+        { name: 'Deployments', path: '/deployments', description: 'Compare sanitized network, VoIP, and payment terminal patterns, including Nextiva, SIP/RTP, voice VLAN, segmented Fiserv and PAX card terminals, firewall, budget, and resilience tradeoffs' },
         { name: 'Consulting', path: '/consulting', description: 'Security consulting services including OSINT and identity protection' },
         { name: 'Newsletter', path: '/newsletter', description: 'Current cybersecurity and infrastructure reporting from verified live RSS and Atom feeds' },
         { name: 'Contact', path: '/#contact', description: 'Get in touch via email, GitHub, or LinkedIn' },

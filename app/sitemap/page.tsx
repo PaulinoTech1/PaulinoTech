@@ -35,6 +35,7 @@ export default function SitemapPage() {
       category: 'Security & Intelligence',
       icon: Search,
       pages: [
+        { name: 'Email Security', path: '/email-security', description: 'Layered email authentication, transport, content, identity, endpoint, and behavioral controls' },
         { name: 'OSINT Resources', path: '/osint', description: 'Defensive tools for exposure monitoring, credential security, asset context, and network detection' },
       ],
     },
@@ -153,6 +154,11 @@ export default function SitemapPage() {
                 <li>
                   <Button variant="outline" asChild>
                     <a href="/consulting">Consulting</a>
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="outline" asChild>
+                    <a href="/email-security">Email Security</a>
                   </Button>
                 </li>
                 <li>

@@ -245,6 +245,9 @@ export default function ExperiencePage() {
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
                 Advanced email security protocols and Google Workspace deployment
               </p>
+              <Button variant="outline" className="mt-6" asChild>
+                <Link href="/email-security">Explore the email security architecture</Link>
+              </Button>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">

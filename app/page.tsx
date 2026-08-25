@@ -41,6 +41,9 @@ export default function Portfolio() {
                 <a href="/consulting" className="text-muted-foreground hover:text-foreground transition-colors">
                   Consulting
                 </a>
+                <a href="/email-security" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Email Security
+                </a>
                 <a href="/osint" className="text-muted-foreground hover:text-foreground transition-colors">
                   OSINT
                 </a>
@@ -66,12 +69,11 @@ export default function Portfolio() {
 
             {/* Mobile Navigation Menu */}
             {mobileMenuOpen && (
-              <div id="mobile-menu" className="lg:hidden py-4 space-y-1 border-t border-border bg-card" role="menu">
+              <div id="mobile-menu" className="lg:hidden py-4 space-y-1 border-t border-border bg-card">
                 <a
                   href="#about"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   About
                 </a>
@@ -79,7 +81,6 @@ export default function Portfolio() {
                   href="/experience"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   Experience
                 </a>
@@ -87,7 +88,6 @@ export default function Portfolio() {
                   href="/deployments"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   Deployments
                 </a>
@@ -95,15 +95,20 @@ export default function Portfolio() {
                   href="/consulting"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   Consulting
+                </a>
+                <a
+                  href="/email-security"
+                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Email Security
                 </a>
                 <a
                   href="/osint"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   OSINT
                 </a>
@@ -111,7 +116,6 @@ export default function Portfolio() {
                   href="/ai-tooling"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   AI Tooling
                 </a>
@@ -119,7 +123,6 @@ export default function Portfolio() {
                   href="#contact"
                   className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
                   onClick={() => setMobileMenuOpen(false)}
-                  role="menuitem"
                 >
                   Contact
                 </a>
@@ -236,7 +239,7 @@ export default function Portfolio() {
                 High-level infrastructure and security work with sensitive production details intentionally withheld
               </p>
               <Button variant="outline" className="mt-6" asChild>
-                <a href="/deployments">Explore sanitized homelab network topologies</a>
+                <a href="/deployments">Explore sanitized network, VoIP, and Nextiva deployment patterns</a>
               </Button>
             </div>
 
@@ -292,6 +295,12 @@ export default function Portfolio() {
                       <li>Email attachment filtering with whitelisted financial partners</li>
                       <li>GoPhish phishing simulations for security awareness</li>
                     </ul>
+                    <Button variant="link" className="mt-4 h-auto p-0" asChild>
+                      <a href="/email-security">
+                        Explore the email security architecture
+                        <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               </article>
@@ -313,11 +322,14 @@ export default function Portfolio() {
                       <li><Badge variant="outline">Netgear</Badge></li>
                       <li><Badge variant="outline">Ubiquiti</Badge></li>
                       <li><Badge variant="outline">VLANs</Badge></li>
+                      <li><Badge variant="outline">VoIP/SIP</Badge></li>
+                      <li><Badge variant="outline">Nextiva</Badge></li>
                     </ul>
                     <ul className="space-y-2 text-sm text-muted-foreground list-none">
                       <li>SonicWall routers with vendor-specific configurations</li>
                       <li>Netgear switches and Ubiquiti access points</li>
                       <li>VLAN segmentation with guest WiFi isolation</li>
+                      <li>Nextiva-aware voice VLAN, SIP/RTP, NAT, QoS, and firewall policy</li>
                       <li>VPN configured for off-premise surveillance access</li>
                     </ul>
                   </CardContent>

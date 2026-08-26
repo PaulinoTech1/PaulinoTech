@@ -26,7 +26,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 export const metadata: Metadata = {
   title: "Email Security Architecture | Paulino Tech",
   description:
-    "A layered email security architecture covering SPF, DKIM, DMARC alignment, TLS reporting, S/MIME, risk-based DLP, identity, endpoints, and behavioral baselining.",
+    "Layered email security across SPF, DKIM, DMARC, TLS, DLP, endpoints, and hands-on Google Workspace, Zoho Mail, and Proton Mail operations.",
 }
 
 const authenticationControls = [
@@ -103,6 +103,41 @@ const rolloutSteps = [
   {
     title: "Tune continuously",
     detail: "Review reports and incidents, recalibrate behavioral models, rotate keys, retire stale senders, and test response procedures.",
+  },
+]
+
+const platformReferences = [
+  {
+    label: "Google: managed Chrome reporting",
+    href: "https://support.google.com/chrome/a/answer/9301421?hl=en",
+  },
+  {
+    label: "Google: manage Chrome with Intune",
+    href: "https://support.google.com/chrome/a/answer/12129062?hl=en",
+  },
+  {
+    label: "Google: Workspace and Microsoft Entra federation",
+    href: "https://cloud.google.com/architecture/identity/federating-gcp-with-azure-active-directory",
+  },
+  {
+    label: "Google: Advanced Protection Program",
+    href: "https://knowledge.workspace.google.com/admin/security/protect-users-with-the-advanced-protection-program",
+  },
+  {
+    label: "Zoho: Workplace plans and mobile-access controls",
+    href: "https://www.zoho.com/workplace/pricing.html",
+  },
+  {
+    label: "Zoho Mail: administration and security controls",
+    href: "https://www.zoho.com/mail/admin-console.html",
+  },
+  {
+    label: "Proton: email encryption boundaries",
+    href: "https://proton.me/support/proton-mail-encryption-explained",
+  },
+  {
+    label: "Proton: spam, block, and allow controls",
+    href: "https://proton.me/support/spam-filtering",
   },
 ]
 
@@ -191,12 +226,15 @@ export default function EmailSecurityPage() {
                 protects transport, inspects content, limits privilege, hardens endpoints, and learns what normal activity
                 looks like.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                 <Button size="lg" asChild>
-                  <a href="#architecture">
-                    Explore the architecture
+                  <a href="#platforms">
+                    Compare email platforms
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                   </a>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <a href="#architecture">Explore the architecture</a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link href="/#contact">Discuss your environment</Link>
@@ -214,6 +252,241 @@ export default function EmailSecurityPage() {
                 will eventually reach someone—and that someone may click it.
               </p>
             </aside>
+          </div>
+        </section>
+
+        <section
+          id="platforms"
+          className="scroll-mt-20 bg-card px-4 py-20 sm:px-6 lg:px-8"
+          aria-labelledby="platforms-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-4xl">
+              <Badge variant="outline" className="mb-4">
+                Platforms I have worked with
+              </Badge>
+              <h2 id="platforms-heading" className="text-3xl font-bold text-foreground sm:text-4xl">
+                Three email services, three operating priorities
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+                I have worked directly with Google Workspace, Zoho Mail, and Proton Mail. The comparison below combines
+                hands-on operational experience with current vendor documentation. Pricing, licensing, and features change,
+                so every recommendation still ends with a current plan review and a pilot using representative mail flow.
+              </p>
+            </div>
+
+            <div className="mt-12 grid gap-7 lg:grid-cols-3">
+              <article>
+                <Card className="h-full border-primary/30 shadow-lg">
+                  <CardHeader>
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10" aria-hidden="true">
+                      <Mail className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge className="mb-2 w-fit bg-primary text-primary-foreground hover:bg-primary">
+                      Default SMB recommendation
+                    </Badge>
+                    <CardTitle>
+                      <h3 className="text-2xl">Google Workspace</h3>
+                    </CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      The strongest general fit when low-friction onboarding, identity integration, and browser visibility
+                      matter more than finding the lowest subscription price.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Gmail and Chrome are already familiar to many employees. That familiarity usually makes onboarding,
+                          recovery, and day-to-day support easier for an SMB.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Enrolled browsers and managed profiles can report versions, extensions, policies, unsafe-site visits,
+                          malware transfers, and password reuse. This is valuable browser-layer endpoint context, not a
+                          replacement for EDR or the mail gateway.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Intune can deploy and configure Chrome on Windows, while Microsoft Entra ID—often synchronized from
+                          Active Directory—can remain the identity source through provisioning and SSO. Assign ownership of
+                          browser, identity, and device policy explicitly instead of stacking competing management systems.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Many SaaS products support Sign in with Google or enterprise Google SSO. When IT approves and
+                          inventories those connections, users need fewer app-specific passwords and administrators gain more
+                          visibility into application access and offboarding.
+                        </span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </article>
+
+              <article>
+                <Card className="h-full border-border shadow-lg">
+                  <CardHeader>
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10" aria-hidden="true">
+                      <Server className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge variant="secondary" className="mb-2 w-fit">
+                      Lower-cost option
+                    </Badge>
+                    <CardTitle>
+                      <h3 className="text-2xl">Zoho Mail / Workplace</h3>
+                    </CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      A cost-conscious business suite with useful mail administration, identity, and mobile-access controls.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          In the configurations I have deployed, Zoho has provided a lower-cost entry point than Google
+                          Workspace. Compare current regional pricing, billing terms, storage, retention, and security
+                          entitlements instead of relying on a permanent price assumption.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          In my hands-on work, its admin and end-user workflows have been less intuitive than Google&apos;s,
+                          increasing onboarding and support effort even when the license cost is lower.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Higher Zoho Mail and Workplace tiers currently list Mobile Access Management, and the wider Zoho and
+                          ManageEngine ecosystem can add fuller device management at an SMB-friendly price. Confirm whether a
+                          quote includes mail-access controls or true MDM before promising enrollment, policy, or remote wipe.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Central domain, user, spam, quarantine, authentication, and policy controls make it a serious
+                          business mail platform—not simply a budget inbox.
+                        </span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </article>
+
+              <article>
+                <Card className="h-full border-border shadow-lg">
+                  <CardHeader>
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10" aria-hidden="true">
+                      <Lock className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge variant="secondary" className="mb-2 w-fit">
+                      Privacy-first option
+                    </Badge>
+                    <CardTitle>
+                      <h3 className="text-2xl">Proton Mail</h3>
+                    </CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      My privacy king of the three, with a narrower operational ecosystem and a greater need to validate mail
+                      filtering against the business&apos;s real traffic.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          Inbox bodies and attachments use zero-access storage, and mail between Proton users is automatically
+                          end-to-end encrypted. Ordinary mail to another provider uses TLS and is not end-to-end encrypted by
+                          default unless a password-protected message or PGP workflow is used.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          In my experience, Proton produced the weakest spam-filtering results of these three and required the
+                          most manual tuning. That is a field observation, not an independent benchmark; Proton also provides
+                          machine-learning filtering, PhishGuard, allow/block lists, and custom filters.
+                        </span>
+                      </li>
+                      <li className="flex gap-3">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                        <span>
+                          It is the strongest fit when message confidentiality and provider access are the primary risks, but
+                          an SMB should pilot deliverability, spam handling, client compatibility, administration, and support
+                          before moving the whole domain.
+                        </span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </article>
+            </div>
+
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              <aside className="rounded-2xl border border-primary/25 bg-primary/5 p-7" aria-labelledby="google-smb-heading">
+                <UserCheck className="mb-5 h-9 w-9 text-primary" aria-hidden="true" />
+                <h3 id="google-smb-heading" className="text-2xl font-bold text-foreground">
+                  Why Google is my default for most SMBs
+                </h3>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  Easier onboarding, a familiar browser, broad SaaS identity support, and clean integration paths for Intune
+                  and Microsoft identity reduce day-to-day friction. For owners, administrators, finance staff, and other
+                  higher-risk accounts, I also evaluate Google&apos;s Advanced Protection Program for passkeys or security keys,
+                  tighter third-party application access, deeper Gmail scanning, Safe Browsing protections, and controlled
+                  recovery. It strengthens selected accounts; it does not replace baseline controls for everyone else.
+                </p>
+              </aside>
+
+              <aside className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-7" aria-labelledby="response-metric-heading">
+                <Activity className="mb-5 h-9 w-9 text-amber-700 dark:text-amber-400" aria-hidden="true" />
+                <h3 id="response-metric-heading" className="text-2xl font-bold text-foreground">
+                  Maturity matters more than a percentage
+                </h3>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  Managed-browser events can shorten spam and phishing investigation only when they feed a monitored queue
+                  and tested playbooks. I have seen the same pattern with SIEM deployments: centralized telemetry materially
+                  accelerated response in one business, while response did not improve in another because the logs were not
+                  consistently reviewed. A tool creates visibility; clear ownership, alert routing, staffing, and practiced
+                  response turn that visibility into action. Describe the operational result and its context instead of
+                  treating a percentage from one organization as a promise to another.
+                </p>
+              </aside>
+            </div>
+
+            <div className="mt-10 border-t border-border pt-8">
+              <h3 className="text-xl font-bold text-foreground">Current platform references</h3>
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                These links support the documented capabilities. The usability and filtering comparisons above are my own
+                operational observations and should be re-tested in the environment being selected.
+              </p>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {platformReferences.map((reference) => (
+                  <li key={reference.href}>
+                    <a
+                      href={reference.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex h-full items-center justify-between gap-3 rounded-lg border border-border bg-background p-4 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+                    >
+                      {reference.label}
+                      <ExternalLink className="h-4 w-4 flex-none" aria-hidden="true" />
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 

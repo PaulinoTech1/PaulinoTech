@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Code, Zap, Users, Github, Linkedin, Mail, ExternalLink, Star, Menu, X } from "lucide-react"
+import { ArrowRight, Code, Zap, Users, Github, Linkedin, Mail, ExternalLink, Star, Menu, X, Cpu, Network, Bot } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -28,7 +28,7 @@ export default function Portfolio() {
               </a>
             
               {/* Desktop Navigation */}
-              <div className="hidden lg:flex space-x-6">
+              <div className="hidden lg:flex items-center gap-4 text-sm">
                 <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
                   About
                 </a>
@@ -37,6 +37,9 @@ export default function Portfolio() {
                 </a>
                 <a href="/deployments" className="text-muted-foreground hover:text-foreground transition-colors">
                   Deployments
+                </a>
+                <a href="/homelab" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Home Lab
                 </a>
                 <a href="/consulting" className="text-muted-foreground hover:text-foreground transition-colors">
                   Consulting
@@ -90,6 +93,13 @@ export default function Portfolio() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Deployments
+                </a>
+                <a
+                  href="/homelab"
+                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home Lab
                 </a>
                 <a
                   href="/consulting"
@@ -146,6 +156,12 @@ export default function Portfolio() {
                   Let&apos;s build resilient systems that protect your business and enable growth.
                 </p>
                 <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+                  <Button size="lg" asChild>
+                    <a href="/homelab">
+                      Explore My Home Lab
+                      <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                    </a>
+                  </Button>
                   <Button variant="outline" size="lg" asChild>
                     <a href="/vendor-tooling">
                       Vendor Tooling
@@ -229,6 +245,52 @@ export default function Portfolio() {
         </section>
 
 
+
+        {/* Home Lab Section */}
+        <section id="homelab" className="bg-muted py-20" aria-labelledby="homelab-heading">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+            <div>
+              <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">Hands-on environment</Badge>
+              <h2 id="homelab-heading" className="mb-5 text-3xl font-bold text-foreground sm:text-4xl">
+                Built to test before production
+              </h2>
+              <p className="mb-6 text-lg leading-relaxed text-muted-foreground">
+                My lab combines a Ryzen 9 workstation, Proxmox VE, Windows, an RTX 3090 for local LLMs, Raspberry Pi
+                nodes, an ARRIS SURFboard modem, SonicWall firewall, NETGEAR switch, Ubiquiti U6 Pro Wi-Fi access point,
+                and embedded hardware. It gives me a controlled place to connect endpoint, server, identity, and network
+                decisions the way an SMB has to.
+              </p>
+              <p className="mb-7 leading-relaxed text-muted-foreground">
+                The public view is intentionally sanitized, and the lab stays separate from client and production data.
+              </p>
+              <Button asChild>
+                <a href="/homelab">
+                  Tour the home lab
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </a>
+              </Button>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              {[
+                { icon: Cpu, title: "Compute", detail: "Windows, Proxmox, virtual systems, and local AI" },
+                { icon: Network, title: "Network", detail: "SURFboard cable edge, SonicWall policy, NETGEAR switching, and UniFi Wi-Fi" },
+                { icon: Bot, title: "Edge", detail: "Raspberry Pi and Arduino services, telemetry, and automation" },
+              ].map((item) => (
+                <Card key={item.title} className="border-border bg-card">
+                  <CardContent className="flex items-start gap-4 p-5">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10" aria-hidden="true">
+                      <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-foreground">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Deployments Section */}
         <section id="deployments" className="py-20 bg-card" aria-labelledby="deployments-heading">

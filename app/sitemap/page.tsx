@@ -21,6 +21,7 @@ export default function SitemapPage() {
       icon: Briefcase,
       pages: [
         { name: 'Experience', path: '/experience', description: 'Detailed SMB IT implementations and projects' },
+        { name: 'My Home Lab', path: '/homelab', description: 'Sanitized equipment, topology, and SMB scenarios spanning Proxmox, Windows, local AI, Raspberry Pi, ARRIS cable service, SonicWall, NETGEAR switching, and Ubiquiti Wi-Fi' },
       ],
     },
     {
@@ -35,7 +36,7 @@ export default function SitemapPage() {
       category: 'Security & Intelligence',
       icon: Search,
       pages: [
-        { name: 'Email Security', path: '/email-security', description: 'Layered email authentication, transport, content, identity, endpoint, and behavioral controls' },
+        { name: 'Email Security', path: '/email-security', description: 'Layered email controls plus hands-on Google Workspace, Zoho Mail, and Proton Mail operational experience' },
         { name: 'OSINT Resources', path: '/osint', description: 'Defensive tools for exposure monitoring, credential security, asset context, and network detection' },
       ],
     },
@@ -134,6 +135,11 @@ export default function SitemapPage() {
                 <li>
                   <Button variant="outline" asChild>
                     <a href="/experience">Experience</a>
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="outline" asChild>
+                    <a href="/homelab">Home Lab</a>
                   </Button>
                 </li>
                 <li>

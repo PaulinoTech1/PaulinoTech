@@ -795,11 +795,11 @@ export default function DeploymentsPage() {
                   Payment terminals get their own segment, not another desk port
                 </h2>
                 <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-                  Card-present hardware shows up in two shapes at the sites I support: processor-supplied countertop PIN
-                  pads from the Fiserv / First Data family, and Android smart terminals from the PAX family. The branding
-                  matters for ordering, provisioning, and support escalation. On the network they are treated identically:
-                  single-purpose, untrusted endpoints that live in a dedicated payment VLAN and reach a named processor
-                  outbound only.
+                  Card-present hardware shows up in two common forms at the sites I support: countertop PIN pads from the
+                  Fiserv / First Data family and Android-based payment appliances from the PAX family. The branding matters
+                  for ordering, provisioning, and support escalation. On the network, both are controlled payment endpoints:
+                  they live in a dedicated payment VLAN and use stateful outbound sessions only to processor-documented
+                  transaction and terminal-management destinations, plus any explicitly approved point-of-sale flow.
                 </p>
                 <p className="mt-5 leading-relaxed text-muted-foreground">
                   Specific terminal models, firmware levels, processor endpoints, and merchant identifiers are omitted for
@@ -815,9 +815,9 @@ export default function DeploymentsPage() {
                 <CreditCard className="mb-5 h-10 w-10 text-primary" aria-hidden="true" />
                 <h3 className="text-2xl font-bold text-foreground">One rule for both brands</h3>
                 <p className="mt-5 text-lg font-medium leading-relaxed text-foreground">
-                  The terminal is a payment appliance, never a general-purpose host. It talks to the processor, to its
-                  terminal management service, and to a short list of internal services. Everything else is denied and
-                  logged.
+                  The terminal is a payment appliance, never a general-purpose host. It talks to the processor, its approved
+                  terminal-management service, and only the internal infrastructure or point-of-sale services it actually
+                  requires. Everything else is denied and logged.
                 </p>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
                   A terminal that completes a test sale has proven the outbound path. It has not proven that the segment
@@ -835,9 +835,10 @@ export default function DeploymentsPage() {
                   Wired countertop PIN pads
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  These are processor-supplied, locked-down devices: the estate does not choose the operating system, and
-                  configuration and firmware arrive from the processor&apos;s download service rather than from local IT.
-                  Most sit beside a register on copper and pair with the point-of-sale system over a documented local link.
+                  These devices are commonly provisioned and supported through a processor, acquirer, or reseller program.
+                  The contract and implementation guide—not an assumption—must identify who owns configuration, application
+                  updates, firmware, key management, and support. Where a countertop device uses Ethernet beside a register,
+                  its point-of-sale relationship is limited to the documented local flow.
                 </p>
                 <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex gap-3">
@@ -850,7 +851,8 @@ export default function DeploymentsPage() {
                   <li className="flex gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
                     <span>
-                      Outbound TLS to the processor and its download host only; no browsing, no inbound, no port forwards.
+                      Approved encrypted protocols to the processor-documented transaction and management destinations only;
+                      no browsing, unsolicited inbound sessions, or port forwards.
                     </span>
                   </li>
                   <li className="flex gap-3">
@@ -870,9 +872,9 @@ export default function DeploymentsPage() {
                   Android smart terminals
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  The Android units are handheld computers that happen to take cards. They carry a full application stack,
-                  a managed terminal store, wireless radios, and often an optional cellular modem. That earns them the same
-                  segment as the countertop devices plus the controls a mobile endpoint needs.
+                  These are purpose-built Android payment appliances with an application stack, managed software channel,
+                  wireless radios, and, in some deployments, cellular connectivity. They belong in the same controlled
+                  payment segment as countertop devices, with additional wireless, application, and lifecycle controls.
                 </p>
                 <ul className="mt-5 space-y-3 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex gap-3">
@@ -940,7 +942,10 @@ export default function DeploymentsPage() {
                     <DiagramArrow label="processor-documented destinations" />
                     <div className="grid gap-3 sm:grid-cols-2">
                       <DiagramNode title="Processor / payment gateway" detail="Named authorization and settlement hosts" />
-                      <DiagramNode title="Terminal management service" detail="Configuration, keys, and signed updates" />
+                      <DiagramNode
+                        title="Terminal management service"
+                        detail="Approved configuration, applications, firmware, and assigned key-management functions"
+                      />
                     </div>
                   </div>
                   <figcaption className="mt-4 text-center text-sm leading-relaxed text-muted-foreground">
@@ -955,10 +960,9 @@ export default function DeploymentsPage() {
                     <ShieldCheck className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
                     <h3 className="text-xl font-bold text-foreground">Segmentation is what limits the scope</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      Everything that can reach the payment segment is in scope with it. Flat networks pull staff
-                      workstations, the camera recorder, and guest wireless into the cardholder environment by accident. A
-                      separate VLAN and a default-deny firewall zone are what keep the assessed boundary small enough to
-                      defend and to evidence.
+                      Systems with unrestricted connectivity to the payment environment can expand PCI DSS scope. A separate
+                      VLAN plus effective, tested firewall controls can reduce that boundary; a VLAN label by itself cannot.
+                      The rule base, routes, wireless mapping, and actual traffic all need to match the documented design.
                     </p>
                   </article>
 
@@ -966,10 +970,10 @@ export default function DeploymentsPage() {
                     <LockKeyhole className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
                     <h3 className="text-xl font-bold text-foreground">Encryption at the reader is not the whole control</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      Point-to-point encryption and tokenization reduce what card data the store ever holds, and they are
-                      worth insisting on. They do not stop a compromised host on the same broadcast domain, unmanaged
-                      software on an Android terminal, or an exposed remote-support path. Encryption and segmentation are
-                      separate jobs.
+                      Point-to-point encryption and tokenization can reduce what card data the business handles, but only
+                      the exact device, application, decryption environment, and operating process of a PCI SSC-listed P2PE
+                      solution receive that treatment. A PTS- or SRED-capable terminal alone is not P2PE. Encryption still
+                      does not replace segmentation, lifecycle management, or controlled support access.
                     </p>
                   </article>
 
@@ -977,21 +981,35 @@ export default function DeploymentsPage() {
                     <Wifi className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
                     <h3 className="text-xl font-bold text-foreground">Wireless and cellular are the leaky edges</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      A handheld terminal roams, and it will happily associate to whatever it was last given. Keep the
-                      payment SSID separate from staff and guest, rotate or rescope its credentials on staff turnover, and
-                      treat a built-in cellular radio as a documented bypass of every firewall rule on this page rather
-                      than as a bonus feature.
+                      Keep the payment SSID separate from staff and guest networks, use per-device credentials where the
+                      platform supports them, and remove a retired or lost device promptly. Treat an enabled cellular path as
+                      a separately documented route outside the local VLAN and firewall controls, with an owner and an
+                      accepted business-continuity rationale.
                     </p>
                   </article>
 
                   <article className="rounded-xl border border-border bg-muted/40 p-6">
                     <Shield className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
-                    <h3 className="text-xl font-bold text-foreground">Remote support is the path that gets abused</h3>
+                    <h3 className="text-xl font-bold text-foreground">Remote support is a separate trust path</h3>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      Terminal vendors, point-of-sale resellers, and processors all want a way in. Give each one a named,
-                      time-bounded, individually attributable path from the admin network with multi-factor sign-in and
-                      logging—not a standing inbound rule, a shared remote-access password, or an always-on tunnel that
-                      nobody owns.
+                      A processor, point-of-sale reseller, or terminal-management service may require remote support. Use the
+                      vendor-documented method, require named identities and multi-factor sign-in where available, authorize
+                      access for a defined window, and retain session evidence. Do not substitute a standing inbound rule,
+                      shared remote-access password, or unowned always-on tunnel.
+                    </p>
+                  </article>
+
+                  <article className="rounded-xl border border-border bg-muted/40 p-6 md:col-span-2">
+                    <AlertTriangle className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
+                    <h3 className="text-xl font-bold text-foreground">Inventory and tamper response stay physical</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      Keep the full model, serial number, location, connection method, support owner, and lifecycle status in
+                      the private asset register even though this public portfolio omits them. Inspect terminals, cables,
+                      labels, and seals on a defined schedule; verify visiting technicians through a known support channel.
+                      If a device appears substituted, opened, unexpectedly reconfigured, or missing, stop using it,
+                      quarantine it without destroying evidence, notify the processor through a known number, and follow the
+                      incident and card-brand procedures. Unsupported software or unclear patch ownership is an escalation,
+                      not a reason to leave the terminal online indefinitely.
                     </p>
                   </article>
                 </div>
@@ -1025,8 +1043,8 @@ export default function DeploymentsPage() {
                           },
                           {
                             flow: "Terminals → terminal management service",
-                            purpose: "Configuration, key injection, and signed application updates",
-                            policy: "Allow the named vendor service only; confirm updates are signed and sourced from that service.",
+                            purpose: "Approved configuration, application or firmware updates, and assigned key-management functions",
+                            policy: "Allow the named service only; verify responsibility, approval, and update provenance with the processor or acquirer.",
                           },
                           {
                             flow: "Payment VLAN → core services",
@@ -1039,9 +1057,9 @@ export default function DeploymentsPage() {
                             policy: "Permit the single documented local flow between named devices; keep it local and logged.",
                           },
                           {
-                            flow: "Admin VLAN → payment devices",
-                            purpose: "Switch, wireless, and terminal administration",
-                            policy: "Allow separate admin identities from the admin network only; require MFA and record every session.",
+                            flow: "Admin network → payment infrastructure",
+                            purpose: "Firewall, switch, and wireless administration",
+                            policy: "Use separate admin identities, MFA, and logging. Do not expose terminal administration unless the approved vendor workflow explicitly requires it.",
                           },
                           {
                             flow: "Payment VLAN → staff, server, guest, or IoT",
@@ -1071,26 +1089,34 @@ export default function DeploymentsPage() {
                     Brand changes the paperwork, not the trust level
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Fiserv and PAX hardware differ in ordering, provisioning, support escalation, and which validated
-                    device listing applies. None of that changes where the device sits on the network. Confirm the exact
-                    approved model, firmware, and encryption solution against the current vendor and PCI Security Standards
-                    Council listings for the deployment in front of you, and take card-data scoping decisions to a
-                    qualified assessor rather than to a topology diagram.
+                    Fiserv and PAX hardware differ in ordering, provisioning, support escalation, and which validated device
+                    or solution listing applies. None of that grants broad network trust. Internally confirm the exact
+                    approved hardware, firmware, payment application, processor relationship, and encryption solution
+                    against current vendor and PCI Security Standards Council material, and take card-data scoping decisions
+                    to a qualified assessor rather than to a topology diagram.
                   </p>
                 </aside>
 
                 <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-6 text-sm">
-                  <SourceLink href="https://www.pcisecuritystandards.org/standards/pci-dss/">
-                    PCI SSC: PCI DSS standard
+                  <SourceLink href="https://www.pcisecuritystandards.org/faqs/1300/">
+                    PCI SSC: payment terminals and PCI DSS scope
                   </SourceLink>
-                  <SourceLink href="https://www.pcisecuritystandards.org/document_library/">
-                    PCI SSC: scoping, segmentation, and P2PE guidance
+                  <SourceLink href="https://www.pcisecuritystandards.org/faqs/1301/">
+                    PCI SSC: terminal security assessment guidance
+                  </SourceLink>
+                  <SourceLink href="https://www.pcisecuritystandards.org/standards/point-to-point-encryption-p2pe/">
+                    PCI SSC: validated P2PE solutions
                   </SourceLink>
                   <SourceLink href="https://www.pcisecuritystandards.org/assessors_and_solutions/pin_transaction_devices">
                     PCI SSC: approved PIN transaction devices
                   </SourceLink>
-                  <SourceLink href="https://www.fiserv.com/">Fiserv: merchant payment solutions</SourceLink>
-                  <SourceLink href="https://www.paxtechnology.com/">PAX Technology: Android smart terminals</SourceLink>
+                  <SourceLink href="https://merchants.fiserv.com/en-us/customer-center/">
+                    Fiserv: merchant support and security resources
+                  </SourceLink>
+                  <SourceLink href="https://merchants.fiserv.com/content/dam/s7/firstdata/us/en/cmm/experiences/TransArmor.pdf">
+                    Fiserv: encryption and tokenization overview
+                  </SourceLink>
+                  <SourceLink href="https://www.pax.us/support/security/">PAX: security and support guidance</SourceLink>
                 </div>
               </CardContent>
             </Card>

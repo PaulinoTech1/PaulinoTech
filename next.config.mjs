@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 
+// React Refresh and webpack HMR need 'unsafe-eval', but only while developing.
+// Production builds must not ship it.
+const isDev = process.env.NODE_ENV !== "production"
+
+const scriptSrc = ["'self'", "'unsafe-inline'", ...(isDev ? ["'unsafe-eval'"] : [])]
+
 // Security headers configuration
 const securityHeaders = [
   // HSTS - Enforces HTTPS for 2 years, includes subdomains, and enables preload
@@ -12,11 +18,13 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+      `script-src ${scriptSrc.join(" ")}`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' blob: data:",
       "font-src 'self'",
       "connect-src 'self'",
+      // Set explicitly rather than inheriting 'self' from default-src.
+      "object-src 'none'",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -74,11 +82,12 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  // Both checks gate the build. Lint config lives in .eslintrc.json.
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   images: {
     unoptimized: true,

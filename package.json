@@ -1,5 +1,5 @@
 {
-  "name": "my-v0-project",
+  "name": "paulinotech",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,8 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "verify:newsletter-links": "node scripts/verify-newsletter-links.mjs"
+    "verify:newsletter-links": "node scripts/verify-newsletter-links.mjs",
+    "verify:mta-sts": "node scripts/verify-mta-sts.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -67,6 +68,8 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "15.2.6",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",

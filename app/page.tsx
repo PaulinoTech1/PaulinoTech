@@ -1,147 +1,12 @@
-'use client'
-
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Code, Zap, Users, Github, Linkedin, Mail, ExternalLink, Star, Menu, X, Cpu, Network, Bot } from "lucide-react"
-import Image from "next/image"
-import { useState } from "react"
+import { ArrowRight, Bot, Cpu, Github, Laptop, Linkedin, Mail, Network, ShieldCheck } from "lucide-react"
 
 export default function Portfolio() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link for Keyboard Navigation */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      {/* Navigation */}
-      <header>
-        <nav className="fixed top-0 w-full bg-card/80 backdrop-blur-md border-b border-border z-50" aria-label="Main navigation">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <a href="/" className="font-bold text-xl text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </a>
-            
-              {/* Desktop Navigation */}
-              <div className="hidden lg:flex items-center gap-4 text-sm">
-                <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About
-                </a>
-                <a href="/experience" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Experience
-                </a>
-                <a href="/deployments" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Deployments
-                </a>
-                <a href="/homelab" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Home Lab
-                </a>
-                <a href="/consulting" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Consulting
-                </a>
-                <a href="/email-security" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Email Security
-                </a>
-                <a href="/osint" className="text-muted-foreground hover:text-foreground transition-colors">
-                  OSINT
-                </a>
-                <a href="/ai-tooling" className="text-muted-foreground hover:text-foreground transition-colors">
-                  AI Tooling
-                </a>
-                <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact
-                </a>
-              </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="lg:hidden p-2 text-foreground"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-menu"
-                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
-              </button>
-            </div>
-
-            {/* Mobile Navigation Menu */}
-            {mobileMenuOpen && (
-              <div id="mobile-menu" className="lg:hidden py-4 space-y-1 border-t border-border bg-card">
-                <a
-                  href="#about"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  About
-                </a>
-                <a
-                  href="/experience"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Experience
-                </a>
-                <a
-                  href="/deployments"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Deployments
-                </a>
-                <a
-                  href="/homelab"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Home Lab
-                </a>
-                <a
-                  href="/consulting"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Consulting
-                </a>
-                <a
-                  href="/email-security"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Email Security
-                </a>
-                <a
-                  href="/osint"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  OSINT
-                </a>
-                <a
-                  href="/ai-tooling"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  AI Tooling
-                </a>
-                <a
-                  href="#contact"
-                  className="block px-4 py-3 text-foreground hover:bg-primary/10 hover:text-primary transition-colors rounded-md mx-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contact
-                </a>
-              </div>
-            )}
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8" aria-labelledby="hero-heading">
@@ -157,47 +22,68 @@ export default function Portfolio() {
                 </p>
                 <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
                   <Button size="lg" asChild>
-                    <a href="/homelab">
+                    <Link href="/homelab">
                       Explore My Home Lab
                       <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <a href="/vendor-tooling">
+                    <Link href="/vendor-tooling">
                       Vendor Tooling
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <a href="/managed-os">
+                    <Link href="/managed-os">
                       Managed Operating Systems
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <a href="/osint">
+                    <Link href="/osint">
                       OSINT Resources
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <a href="/ai-tooling">
+                    <Link href="/ai-tooling">
                       AI Tooling
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>
-              <div className="relative" aria-hidden="true">
-                <div className="bg-gradient-to-br from-primary to-accent rounded-2xl p-8 text-primary-foreground">
-                  <ul className="space-y-4 list-none">
-                    <li className="flex items-center gap-3">
-                      <Code className="h-6 w-6" aria-hidden="true" />
-                      <span className="font-semibold">Modern Tech Stack</span>
+              <div className="relative">
+                <div className="rounded-2xl bg-gradient-to-br from-primary to-accent p-8 text-primary-foreground">
+                  <h2 id="focus-heading" className="text-xs font-bold uppercase tracking-[0.18em] text-primary-foreground/80">
+                    Where I focus
+                  </h2>
+                  <ul className="mt-6 space-y-6 list-none" aria-labelledby="focus-heading">
+                    <li className="flex items-start gap-4">
+                      <Network className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
+                      <div>
+                        <h3 className="font-semibold">Network &amp; Infrastructure</h3>
+                        <p className="mt-1 text-sm leading-relaxed text-primary-foreground/80">
+                          Segmented VLANs, firewall policy, managed switching, and Wi-Fi that keep guest, voice, and
+                          payment traffic apart.
+                        </p>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <Zap className="h-6 w-6" aria-hidden="true" />
-                      <span className="font-semibold">Lightning Fast Development</span>
+                    <li className="flex items-start gap-4">
+                      <ShieldCheck className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
+                      <div>
+                        <h3 className="font-semibold">Identity &amp; Email Security</h3>
+                        <p className="mt-1 text-sm leading-relaxed text-primary-foreground/80">
+                          Hybrid Active Directory and SSO, MFA architecture, and SPF, DKIM, DMARC, MTA-STS, and DLP
+                          enforcement.
+                        </p>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <Users className="h-6 w-6" aria-hidden="true" />
-                      <span className="font-semibold">Developer-Focused Solutions</span>
+                    <li className="flex items-start gap-4">
+                      <Laptop className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
+                      <div>
+                        <h3 className="font-semibold">Endpoints &amp; Continuity</h3>
+                        <p className="mt-1 text-sm leading-relaxed text-primary-foreground/80">
+                          Managed operating systems, reviewed hardware onboarding, monitoring, and documented recovery
+                          paths.
+                        </p>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -244,8 +130,6 @@ export default function Portfolio() {
           </div>
         </section>
 
-
-
         {/* Home Lab Section */}
         <section id="homelab" className="bg-muted py-20" aria-labelledby="homelab-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
@@ -264,10 +148,10 @@ export default function Portfolio() {
                 The public view is intentionally sanitized, and the lab stays separate from client and production data.
               </p>
               <Button asChild>
-                <a href="/homelab">
+                <Link href="/homelab">
                   Tour the home lab
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                </a>
+                </Link>
               </Button>
             </div>
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
@@ -301,7 +185,7 @@ export default function Portfolio() {
                 High-level infrastructure and security work with sensitive production details intentionally withheld
               </p>
               <Button variant="outline" className="mt-6" asChild>
-                <a href="/deployments">Explore sanitized network, VoIP, and Nextiva deployment patterns</a>
+                <Link href="/deployments">Explore sanitized network, VoIP, and Nextiva deployment patterns</Link>
               </Button>
             </div>
 
@@ -358,10 +242,10 @@ export default function Portfolio() {
                       <li>GoPhish phishing simulations for security awareness</li>
                     </ul>
                     <Button variant="link" className="mt-4 h-auto p-0" asChild>
-                      <a href="/email-security">
+                      <Link href="/email-security">
                         Explore the email security architecture
                         <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                      </a>
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -433,9 +317,10 @@ export default function Portfolio() {
         <section id="contact" className="py-20 bg-foreground text-background" aria-labelledby="contact-heading">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold mb-4">Let&apos;s Build Something Amazing</h2>
+              <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold mb-4">Let&apos;s Secure Your Infrastructure</h2>
               <p className="text-xl text-background/70 max-w-3xl mx-auto">
-                Ready to accelerate your development process? Let&apos;s discuss your project.
+                Have a network, identity, or email security question worth a second opinion? Reach out and we&apos;ll
+                talk it through.
               </p>
             </div>
 
@@ -500,34 +385,6 @@ export default function Portfolio() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-foreground text-background/60 py-8 border-t border-background/10" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <div className="font-bold text-xl text-background">Paulino Tech | 2026</div>
-              <nav aria-label="Footer navigation">
-                <ul className="flex gap-4">
-                  <li>
-                    <a href="/sitemap" className="text-background/70 hover:text-background transition-colors underline">
-                      Sitemap
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/newsletter" className="text-background/70 hover:text-background transition-colors underline">
-                      Newsletter
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <p className="text-center md:text-right text-background/70">
-              Resilience made simple, connect on your terms!
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

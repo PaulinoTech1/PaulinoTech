@@ -1,8 +1,6 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 import {
   Activity,
-  ArrowLeft,
   ArrowRight,
   Brain,
   CheckCircle2,
@@ -22,12 +20,14 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { createPageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = {
-  title: "Email Security Architecture | Paulino Tech",
+export const metadata = createPageMetadata({
+  title: "Email Security Architecture",
   description:
     "Layered email security across SPF, DKIM, DMARC, TLS, DLP, endpoints, and hands-on Google Workspace, Zoho Mail, and Proton Mail operations.",
-}
+  path: "/email-security",
+})
 
 const authenticationControls = [
   {
@@ -178,33 +178,7 @@ const standards = [
 
 export default function EmailSecurityPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      <header>
-        <nav
-          className="fixed top-0 z-50 w-full border-b border-border bg-card/80 backdrop-blur-md"
-          aria-label="Main navigation"
-        >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 items-center justify-between">
-              <Link href="/" className="text-xl font-bold text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </Link>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/" className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                  Back to Home
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         <section
           className="bg-gradient-to-br from-primary/5 via-background to-accent/10 px-4 pb-20 pt-32 sm:px-6 lg:px-8"
@@ -1459,13 +1433,6 @@ export default function EmailSecurityPage() {
           </div>
         </section>
       </main>
-
-      <footer className="border-t border-background/10 bg-foreground px-4 py-8 text-background/60 sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="font-bold text-background">Paulino Tech | 2026</div>
-          <p className="text-center md:text-right">Layered controls. Measured enforcement. Defensible operations.</p>
-        </div>
-      </footer>
     </div>
   )
 }

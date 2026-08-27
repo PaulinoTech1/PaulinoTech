@@ -1,7 +1,4 @@
-import type { Metadata } from "next"
-import Link from "next/link"
 import {
-  ArrowLeft,
   Database,
   ExternalLink,
   KeyRound,
@@ -12,14 +9,15 @@ import {
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { createPageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = {
-  title: "OSINT & Exposure Intelligence | Paulino Tech",
+export const metadata = createPageMetadata({
+  title: "OSINT & Exposure Intelligence",
   description:
     "Defensive OSINT resources for breach awareness, credential protection, asset context, and network detection.",
-}
+  path: "/osint",
+})
 
 const toolGroups = [
   {
@@ -86,31 +84,7 @@ const toolGroups = [
 
 export default function OsintPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      <header>
-        <nav
-          className="fixed top-0 z-50 w-full border-b border-border bg-card/80 backdrop-blur-md"
-          aria-label="Main navigation"
-        >
-          <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <Link href="/" className="font-bold text-xl text-foreground">
-              <span className="sr-only">Paulino Tech Home</span>
-              <span aria-hidden="true">Paulino Tech</span>
-            </Link>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/">
-                <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         <section className="px-4 pb-14 pt-32 sm:px-6 lg:px-8" aria-labelledby="page-heading">
           <div className="mx-auto max-w-6xl text-center">
@@ -261,17 +235,6 @@ export default function OsintPage() {
           </div>
         </section>
       </main>
-
-      <footer className="border-t border-background/10 bg-foreground py-8 text-background/60" role="contentinfo">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
-          <div className="font-bold text-xl text-background">Paulino Tech | 2026</div>
-          <nav aria-label="Footer navigation">
-            <Link href="/sitemap" className="text-background/70 underline transition-colors hover:text-background">
-              Sitemap
-            </Link>
-          </nav>
-        </div>
-      </footer>
     </div>
   )
 }

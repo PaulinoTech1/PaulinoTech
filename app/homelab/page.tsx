@@ -1,9 +1,7 @@
-import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import Link from "next/link"
 import {
   ArrowDown,
-  ArrowLeft,
   ArrowRight,
   Bot,
   Cable,
@@ -22,12 +20,14 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { createPageMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = {
-  title: "My Home Lab | Paulino Tech",
+export const metadata = createPageMetadata({
+  title: "My Home Lab",
   description:
     "A sanitized look at the Windows, Proxmox, Raspberry Pi, ARRIS SURFboard, SonicWall, NETGEAR, Ubiquiti, Arduino, and local-AI equipment I use to model common SMB infrastructure and security scenarios.",
-}
+  path: "/homelab",
+})
 
 function EquipmentCard({
   icon: Icon,
@@ -125,31 +125,7 @@ const scenarios = [
 
 export default function HomeLabPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      <header>
-        <nav
-          className="fixed top-0 z-50 w-full border-b border-border bg-card/80 backdrop-blur-md"
-          aria-label="Main navigation"
-        >
-          <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-            <Link href="/" className="text-xl font-bold text-foreground">
-              <span className="sr-only">Paulino Tech Home</span>
-              <span aria-hidden="true">Paulino Tech</span>
-            </Link>
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/">
-                <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-                Back to Home
-              </Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         <section className="px-4 pb-8 pt-24 sm:px-6 lg:px-8" aria-labelledby="disclosure-heading">
           <div className="mx-auto flex max-w-6xl gap-4 rounded-2xl border border-primary/25 bg-primary/5 p-5 sm:p-6" role="note">
@@ -415,20 +391,6 @@ export default function HomeLabPage() {
           </div>
         </section>
       </main>
-
-      <footer className="border-t border-background/10 bg-foreground py-8 text-background/60" role="contentinfo">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:px-6 md:flex-row lg:px-8">
-          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-4">
-            <div className="text-xl font-bold text-background">Paulino Tech | 2026</div>
-            <nav aria-label="Footer navigation">
-              <Link href="/sitemap" className="text-background/70 underline transition-colors hover:text-background">
-                Sitemap
-              </Link>
-            </nav>
-          </div>
-          <p className="text-center text-background/70 md:text-right">Resilience made simple, connect on your terms!</p>
-        </div>
-      </footer>
     </div>
   )
 }

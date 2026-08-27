@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { createPageMetadata } from "@/lib/metadata"
 import { 
   Network, 
   Shield, 
@@ -11,41 +12,22 @@ import {
   Lock, 
   FileCheck, 
   AlertTriangle,
-  ArrowLeft,
   Smartphone,
   HardDrive,
   Cloud
 } from "lucide-react"
 import Link from "next/link"
 
+export const metadata = createPageMetadata({
+  title: "Experience",
+  description:
+    "Real-world SMB implementations spanning network infrastructure, hybrid identity, email security, surveillance, endpoint management, and vendor-specific configurations.",
+  path: "/experience",
+})
+
 export default function ExperiencePage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      {/* Navigation */}
-      <header>
-        <nav className="fixed top-0 w-full bg-card/80 backdrop-blur-md border-b border-border z-50" aria-label="Main navigation">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <Link href="/" className="font-bold text-xl text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </Link>
-              <Link href="/">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Back to Home
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 to-accent/5" aria-labelledby="page-heading">

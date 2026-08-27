@@ -1,10 +1,13 @@
-'use client'
-
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ArrowLeft } from 'lucide-react'
-import Link from 'next/link'
+import { createPageMetadata } from "@/lib/metadata"
+
+export const metadata = createPageMetadata({
+  title: "Vendor Tooling",
+  description:
+    "Vendor platforms and hardware deployed across SMB environments, spanning network infrastructure, voice, surveillance, identity, email security, cloud productivity, and data loss prevention.",
+  path: "/vendor-tooling",
+})
 
 export default function VendorTooling() {
   const vendors = [
@@ -67,30 +70,7 @@ export default function VendorTooling() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      {/* Navigation */}
-      <header>
-        <nav className="fixed top-0 w-full bg-card/80 backdrop-blur-md border-b border-border z-50" aria-label="Main navigation">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <a href="/" className="font-bold text-xl text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </a>
-              <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                Back
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         {/* Main Content */}
         <div className="pt-24 pb-20 px-4 sm:px-6 lg:px-8">
@@ -163,18 +143,6 @@ export default function VendorTooling() {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-foreground text-background/60 py-8 border-t border-background/10" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="font-bold text-xl text-background mb-4 md:mb-0">Paulino Tech</div>
-            <p className="text-center md:text-right">
-              2026 Paulino Tech. Helping SMBs secure and manage their infrastructure.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

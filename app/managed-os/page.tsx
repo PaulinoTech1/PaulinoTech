@@ -1,8 +1,14 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Monitor, Server, Laptop, HardDrive } from "lucide-react"
-import Link from "next/link"
+import { createPageMetadata } from "@/lib/metadata"
+import { Monitor, Server, Laptop, HardDrive } from "lucide-react"
+
+export const metadata = createPageMetadata({
+  title: "Managed Operating Systems",
+  description:
+    "Operating systems I deploy and manage across server, workstation, and mobile infrastructure, from Windows Server 2022 and Windows 11 Pro to Ubuntu and macOS.",
+  path: "/managed-os",
+})
 
 const operatingSystems = [
   {
@@ -63,32 +69,7 @@ const operatingSystems = [
 
 export default function ManagedOSPage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      {/* Navigation */}
-      <header>
-        <nav className="fixed top-0 w-full bg-card/80 backdrop-blur-md border-b border-border z-50" aria-label="Main navigation">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <Link href="/" className="font-bold text-xl text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </Link>
-              <Button variant="ghost" asChild>
-                <Link href="/">
-                  <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-                  Back to Home
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         {/* Hero Section */}
         <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8" aria-labelledby="page-heading">
@@ -201,18 +182,6 @@ export default function ManagedOSPage() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-foreground text-background/60 py-8 border-t border-background/10" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="font-bold text-xl text-background mb-4 md:mb-0">Paulino Tech</div>
-            <p className="text-center md:text-right">
-              2026 Paulino Tech. Helping developers build faster, better web applications with secure infrastructure.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

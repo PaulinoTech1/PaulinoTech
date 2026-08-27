@@ -1,7 +1,16 @@
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Shield, UserCheck, Lock, Fingerprint, ArrowLeft, CheckCircle2 } from "lucide-react"
+import { createPageMetadata } from "@/lib/metadata"
+import { Shield, UserCheck, Lock, Fingerprint, CheckCircle2 } from "lucide-react"
+
+export const metadata = createPageMetadata({
+  title: "Consulting Services",
+  description:
+    "Security consulting covering personal OSINT assessments, digital account risk hardening, identity protection, and MFA architecture for individuals and SMB teams.",
+  path: "/consulting",
+})
 
 export default function ConsultingPage() {
   const services = [
@@ -56,32 +65,7 @@ export default function ConsultingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
-      {/* Navigation */}
-      <header>
-        <nav className="fixed top-0 w-full bg-card/80 backdrop-blur-md border-b border-border z-50" aria-label="Main navigation">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <a href="/" className="font-bold text-xl text-foreground">
-                <span className="sr-only">Paulino Tech Home</span>
-                <span aria-hidden="true">Paulino Tech</span>
-              </a>
-              <Button variant="ghost" asChild>
-                <a href="/" className="flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                  Back to Home
-                </a>
-              </Button>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <div className="bg-background">
       <main id="main-content">
         {/* Hero Section */}
         <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8" aria-labelledby="page-heading">
@@ -162,30 +146,11 @@ export default function ConsultingPage() {
               Let&apos;s discuss how we can improve your digital security posture.
             </p>
             <Button size="lg" asChild className="bg-primary hover:bg-accent text-primary-foreground">
-              <a href="/#contact">Get in Touch</a>
+              <Link href="/#contact">Get in Touch</Link>
             </Button>
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-foreground text-background/60 py-8 border-t border-background/10" role="contentinfo">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-              <div className="font-bold text-xl text-background">Paulino Tech | 2026</div>
-              <nav aria-label="Footer navigation">
-                <a href="/sitemap" className="text-background/70 hover:text-background transition-colors underline">
-                  Sitemap
-                </a>
-              </nav>
-            </div>
-            <p className="text-center md:text-right text-background/70">
-              Resilience made simple, connect on your terms!
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

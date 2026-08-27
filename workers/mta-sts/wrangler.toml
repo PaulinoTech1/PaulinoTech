@@ -1,0 +1,19 @@
+name = "mta-sts-policy"
+main = "src/index.js"
+compatibility_date = "2026-08-27"
+
+# Bundle the site's policy file as a string so the Worker and the website serve
+# identical content from one source. Without this rule the .txt import fails.
+[[rules]]
+type = "Text"
+globs = ["**/*.txt"]
+fallthrough = true
+
+# The hostname must be the mta-sts subdomain: RFC 8461 senders look nowhere else.
+# Its DNS record has to be proxied (orange cloud) for this route to receive traffic.
+[[routes]]
+pattern = "mta-sts.paulinotech.com/*"
+zone_name = "paulinotech.com"
+
+# No observability, bindings, or environment variables: this Worker returns one
+# static document and should hold no state and no secrets.

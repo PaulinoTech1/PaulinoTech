@@ -241,11 +241,31 @@ const warnings = results.filter((r) => r.status === "warn")
 
 console.log(`\n${results.length} checks: ${failures.length} failed, ${warnings.length} warnings.`)
 
+const mode = localPolicy?.mode
+const bumpReminder = policyId
+  ? `Remember to bump the _mta-sts TXT id (currently ${policyId}) whenever the policy body changes.`
+  : null
+
 if (failures.length) {
-  console.log(`\nDo NOT deploy "mode: enforce" for ${domain} until the failures above are fixed.`)
-  console.log("With enforce active and the policy unreachable or wrong, senders will refuse to deliver mail.")
+  if (mode === "enforce") {
+    console.log(`
+The local policy is set to enforce and ${failures.length} check(s) failed.`)
+    console.log(`Do NOT deploy it for ${domain}. With enforce active and the policy unreachable or`)
+    console.log("disagreeing with the live MX records, senders will refuse to deliver mail.")
+  } else {
+    console.log(`
+The local policy is set to ${mode ?? "an unrecognised mode"}, so none of the above is`)
+    console.log("breaking mail today: a sender that cannot fetch a policy proceeds as if none existed.")
+    console.log(`Fix the failures above before switching ${domain} to enforce.`)
+  }
   process.exitCode = 1
+} else if (mode === "testing") {
+  console.log(`
+All preconditions pass for ${domain}, and the policy is in testing mode.`)
+  console.log("Collect TLS-RPT reports for a week or so, then switch to enforce and re-run this check.")
+  if (bumpReminder) console.log(bumpReminder)
 } else {
-  console.log(`\nMTA-STS preconditions look good for ${domain}.`)
-  if (policyId) console.log(`Remember: bump the _mta-sts TXT id (currently ${policyId}) whenever the policy changes.`)
+  console.log(`
+MTA-STS preconditions look good for ${domain}.`)
+  if (bumpReminder) console.log(bumpReminder)
 }

@@ -25,7 +25,7 @@ import { createPageMetadata } from "@/lib/metadata"
 export const metadata = createPageMetadata({
   title: "My Home Lab",
   description:
-    "A sanitized look at the Windows, Proxmox, Raspberry Pi, ARRIS SURFboard, SonicWall, NETGEAR, Ubiquiti, Arduino, and local-AI equipment I use to model common SMB infrastructure and security scenarios.",
+    "A sanitized look at the Windows, Proxmox, ARRIS SURFboard, SonicWall, NETGEAR, Ubiquiti, and local-AI equipment I use to model SMB infrastructure, plus ARM and microcontroller boards chosen to emulate IoT and alarm-class devices.",
   path: "/homelab",
 })
 
@@ -272,10 +272,66 @@ export default function HomeLabPage() {
                   <li><strong className="text-foreground">Development board:</strong> Arduino Uno</li>
                 </ul>
                 <p className="mt-5 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
-                  These smaller systems add ARM Linux, low-power services, physical interfaces, and serial telemetry. The
-                  Arduino is not presented as a network endpoint because no Ethernet or Wi-Fi interface was specified.
+                  Neither board is here as a hobby project. Both were chosen because they match the architecture of
+                  device classes an SMB actually has to secure, which is explained below. The Arduino is not presented
+                  as a network endpoint because no Ethernet or Wi-Fi interface was specified.
                 </p>
               </EquipmentCard>
+            </div>
+
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-foreground">Why these two boards specifically</h3>
+              <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
+                An x86 virtual machine is a poor stand-in for an embedded device. It has the wrong instruction set, far
+                more resources than the real thing, and none of the constraints that make these devices hard to secure.
+                Both boards were picked to close that gap.
+              </p>
+
+              <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                <Card className="border-border bg-card">
+                  <CardHeader>
+                    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10" aria-hidden="true">
+                      <Cpu className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl">Raspberry Pi: IoT emulation on matching architecture</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      Effectively every IoT endpoint I have worked with runs an ARM processor. Cameras, sensors,
+                      controllers, and access points overwhelmingly ship ARM silicon, and the Pi runs the same
+                      architecture on comparable resources.
+                    </p>
+                    <p>
+                      That makes it a credible stand-in for the class rather than a rough approximation. Questions worth
+                      asking of a real device, such as what it reaches out to on first boot, how it behaves once it is
+                      confined to a segmented VLAN, and what it does when its outbound path is blocked, can be modelled
+                      here before anything is placed on a production network.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-border bg-card">
+                  <CardHeader>
+                    <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10" aria-hidden="true">
+                      <CircuitBoard className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl">Arduino: the tier below Linux</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    <p>
+                      Alarm panels, door controllers, and sensor boards generally sit a tier below anything running a
+                      general-purpose operating system. They are microcontroller-class: no shell, no package manager, no
+                      way to install an agent, and often no means of patching in the field.
+                    </p>
+                    <p>
+                      The Arduino closely represents that tier, which makes it the right place to reason about what can
+                      and cannot be done to secure a device with no room for the tooling every other control assumes.
+                      For that class the answer is usually network placement and physical control rather than anything
+                      installed on the device.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </section>

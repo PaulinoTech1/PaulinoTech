@@ -297,15 +297,23 @@ export default function HomeLabPage() {
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm leading-relaxed text-muted-foreground">
                     <p>
-                      Effectively every IoT endpoint I have worked with runs an ARM processor. Cameras, sensors,
-                      controllers, and access points overwhelmingly ship ARM silicon, and the Pi runs the same
-                      architecture on comparable resources.
+                      Effectively every IoT endpoint I have worked with runs an ARM processor, and the Pi runs the same
+                      architecture on comparable resources. That makes it a credible stand-in for the class rather than
+                      a rough approximation.
                     </p>
+                    <p className="font-medium text-foreground">Device classes modelled on it:</p>
+                    <ul className="space-y-1.5 pl-4">
+                      <li className="list-disc">Network printers and multifunction devices</li>
+                      <li className="list-disc">IP security cameras</li>
+                      <li className="list-disc">Digital video recorders</li>
+                      <li className="list-disc">Wi-Fi connected thermostats</li>
+                    </ul>
                     <p>
-                      That makes it a credible stand-in for the class rather than a rough approximation. Questions worth
-                      asking of a real device, such as what it reaches out to on first boot, how it behaves once it is
-                      confined to a segmented VLAN, and what it does when its outbound path is blocked, can be modelled
-                      here before anything is placed on a production network.
+                      Those four cover most of what actually turns up on a small business network without anybody
+                      deciding it should be there. They tend to ship with default credentials, no practical patch path,
+                      and a habit of reaching outbound to a vendor cloud. Questions worth asking of a real one, such as
+                      what it contacts on first boot, how it behaves confined to a segmented VLAN, and what breaks when
+                      its outbound path is blocked, get answered here rather than in production.
                     </p>
                   </CardContent>
                 </Card>

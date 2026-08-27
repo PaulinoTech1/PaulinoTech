@@ -15,6 +15,7 @@ export const PRIMARY_NAV: readonly NavLink[] = [
   { href: "/deployments", label: "Deployments" },
   { href: "/homelab", label: "Home Lab" },
   { href: "/email-security", label: "Email Security" },
+  { href: "/active-directory", label: "Active Directory" },
   { href: "/osint", label: "OSINT" },
   { href: "/ai-tooling", label: "AI Tooling" },
   { href: "/consulting", label: "Consulting" },
@@ -50,6 +51,7 @@ export const FOOTER_SECTIONS: readonly { heading: string; links: readonly NavLin
     heading: "Security",
     links: [
       { href: "/email-security", label: "Email Security" },
+      { href: "/active-directory", label: "Active Directory" },
       { href: "/osint", label: "OSINT" },
       { href: "/consulting", label: "Consulting" },
       { href: "/ai-tooling", label: "AI Tooling" },

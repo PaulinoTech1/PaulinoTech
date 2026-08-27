@@ -45,6 +45,7 @@ export default function SitemapPage() {
       category: 'Security & Intelligence',
       icon: Search,
       pages: [
+        { name: 'Active Directory', path: '/active-directory', description: 'Sanitized least-privilege directory design scoped by role duties, purchasing authority, and data classification' },
         { name: 'Email Security', path: '/email-security', description: 'Layered email controls plus hands-on Google Workspace, Zoho Mail, and Proton Mail operational experience' },
         { name: 'OSINT Resources', path: '/osint', description: 'Defensive tools for exposure monitoring, credential security, asset context, and network detection' },
       ],

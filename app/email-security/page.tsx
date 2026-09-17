@@ -176,6 +176,37 @@ const standards = [
   },
 ]
 
+function CodeSnippet({
+  title,
+  language,
+  note,
+  code,
+}: {
+  title: string
+  language?: string
+  note?: string
+  code: string
+}) {
+  return (
+    <figure className="overflow-hidden rounded-2xl border border-border">
+      <div className="flex items-center justify-between gap-4 border-b border-border bg-muted/60 px-5 py-3">
+        <p className="text-sm font-bold text-foreground">{title}</p>
+        {language ? (
+          <span className="shrink-0 text-xs font-medium uppercase tracking-widest text-muted-foreground">{language}</span>
+        ) : null}
+      </div>
+      <pre className="overflow-x-auto bg-zinc-950 p-5 text-[13px] leading-relaxed text-zinc-100">
+        <code>{code}</code>
+      </pre>
+      {note ? (
+        <figcaption className="border-t border-border bg-muted/40 px-5 py-3 text-xs leading-relaxed text-muted-foreground">
+          {note}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
 export default function EmailSecurityPage() {
   return (
     <div className="bg-background">
@@ -1267,6 +1298,63 @@ export default function EmailSecurityPage() {
                 )
               })}
             </ol>
+
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold text-foreground">Domain and transport record patterns</h3>
+              <p className="mt-3 max-w-4xl leading-relaxed text-muted-foreground">
+                Generic patterns for layer 01. Every value below is a placeholder: replace{" "}
+                <code className="rounded bg-muted px-1.5 py-0.5 text-sm text-foreground">example.com</code>, selectors,
+                and mailbox names with the organization&apos;s own, collect DMARC and TLS reports before enforcing, and
+                keep DNS changes monitored.
+              </p>
+              <div className="mt-8 grid gap-6 lg:grid-cols-2">
+                <CodeSnippet
+                  title="DMARC record"
+                  language="dns txt"
+                  note="Generic pattern. Start at p=none to collect reports, move to quarantine, then reject only after alignment is proven across all legitimate senders."
+                  code={`_dmarc.example.com.  TXT  "v=DMARC1; p=quarantine; rua=mailto:dmarc-agg@example.com; ruf=mailto:dmarc-forensic@example.com; fo=1; adkim=r; aspf=r; pct=100;"`}
+                />
+                <CodeSnippet
+                  title="DKIM signing record"
+                  language="dns txt"
+                  note="Generic pattern. Generate a real 2048-bit key pair per selector, publish only the public key, rotate selectors periodically, and keep the private key out of DNS and logs."
+                  code={`selector1._domainkey.example.com.  TXT  "v=DKIM1; k=rsa; p=MIIBIjANBgkqh...AQAB"`}
+                />
+                <CodeSnippet
+                  title="Alignment tags: aspf and adkim"
+                  language="dmarc tags"
+                  note="Both default to relaxed (r) when omitted. Strict (s) narrows matching but must reflect real sending and subdomain patterns, or legitimate mail fails."
+                  code={`# aspf controls SPF alignment; adkim controls DKIM alignment.
+_dmarc.example.com.  TXT  "v=DMARC1; p=reject; aspf=r; adkim=r; rua=mailto:dmarc-agg@example.com;"
+
+# aspf=s  -> SPF-authenticated domain must exactly match the From domain
+# aspf=r  -> the same organizational domain is enough
+# adkim=s -> the DKIM d= domain must exactly match the From domain
+# adkim=r -> the same organizational domain is enough`}
+                />
+                <CodeSnippet
+                  title="TLS reporting record"
+                  language="dns txt"
+                  note="Generic pattern. TLS-RPT carries aggregate reports only; pair it with MTA-STS or DANE so there is something to report on."
+                  code={`_smtp._tls.example.com.  TXT  "v=TLSRPTv1; rua=mailto:tls-reports@example.com;"`}
+                />
+                <div className="lg:col-span-2">
+                  <CodeSnippet
+                    title="MTA-STS: DNS record plus policy file"
+                    language="dns txt + https"
+                    note="Generic pattern. Serve the policy at https://mta-sts.example.com/.well-known/mta-sts.txt over HTTPS with a valid certificate, no redirects. Start at mode: testing while TLS reports arrive, then move to enforce."
+                    code={`_mta-sts.example.com.  TXT  "v=STSv1; id=20260917T000000Z;"
+
+# https://mta-sts.example.com/.well-known/mta-sts.txt
+version: STSv1
+mode: enforce
+mx: mail.example.com
+mx: mail2.example.com
+max_age: 86400`}
+                  />
+                </div>
+              </div>
+            </div>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-2">
               <article className="rounded-2xl bg-foreground p-8 text-background">

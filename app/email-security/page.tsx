@@ -1308,12 +1308,24 @@ export default function EmailSecurityPage() {
                 keep DNS changes monitored.
               </p>
               <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                <CodeSnippet
-                  title="DMARC record"
-                  language="dns txt"
-                  note="Generic pattern. Start at p=none to collect reports, move to quarantine, then reject only after alignment is proven across all legitimate senders."
-                  code={`_dmarc.example.com.  TXT  "v=DMARC1; p=quarantine; rua=mailto:dmarc-agg@example.com; ruf=mailto:dmarc-forensic@example.com; fo=1; adkim=r; aspf=r; pct=100;"`}
-                />
+                <div>
+                  <CodeSnippet
+                    title="DMARC record"
+                    language="dns txt"
+                    note="Generic pattern. Start at p=none to collect reports, move to quarantine, then reject only after alignment is proven across all legitimate senders."
+                    code={`_dmarc.example.com.  TXT  "v=DMARC1; p=quarantine; rua=mailto:dmarc-agg@example.com; ruf=mailto:dmarc-forensic@example.com; fo=1; adkim=r; aspf=r; pct=100;"`}
+                  />
+                  <a
+                    href="https://github.com/PaulinoTech1/DMARC-Aggregate-Reader"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                  >
+                    DMARC-Aggregate-Reader: makes reading the aggregate reports easier
+                    <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </div>
                 <CodeSnippet
                   title="DKIM signing record"
                   language="dns txt"

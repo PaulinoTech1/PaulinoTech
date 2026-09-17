@@ -114,6 +114,37 @@ function SourceLink({ href, children }: { href: string; children: ReactNode }) {
   )
 }
 
+function CodeSnippet({
+  title,
+  language,
+  note,
+  code,
+}: {
+  title: string
+  language?: string
+  note?: string
+  code: string
+}) {
+  return (
+    <figure className="mt-8 overflow-hidden rounded-2xl border border-border">
+      <div className="flex items-center justify-between gap-4 border-b border-border bg-muted/60 px-5 py-3">
+        <p className="text-sm font-bold text-foreground">{title}</p>
+        {language ? (
+          <span className="shrink-0 text-xs font-medium uppercase tracking-widest text-muted-foreground">{language}</span>
+        ) : null}
+      </div>
+      <pre className="overflow-x-auto bg-zinc-950 p-5 text-[13px] leading-relaxed text-zinc-100">
+        <code>{code}</code>
+      </pre>
+      {note ? (
+        <figcaption className="border-t border-border bg-muted/40 px-5 py-3 text-xs leading-relaxed text-muted-foreground">
+          {note}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
 export default function DeploymentsPage() {
   return (
     <div className="bg-background">
@@ -253,6 +284,21 @@ export default function DeploymentsPage() {
                   </figcaption>
                 </figure>
 
+                <CodeSnippet
+                  title="Flat-LAN addressing sketch"
+                  language="illustrative"
+                  note="Illustrative pattern only. Replace the example range with the site plan; this is not a copy-and-paste template."
+                  code={`# Topology 1: one broadcast domain, no VLAN trust boundaries.
+#
+#   192.0.2.0/24   (TEST-NET-1 example range; replace with the site plan)
+#   .1             gateway (SonicWall LAN interface)
+#   .10-.200       DHCP pool: workstations, phones, printer or NAS
+#
+# Every device above reaches every other device at Layer 2.
+# Segmentation (Topology 2) begins by splitting this range into
+# tagged VLANs with firewall policy between them.`}
+                />
+
                 <div className="mt-8">
                   <Tradeoffs
                     strengths={[
@@ -314,6 +360,23 @@ export default function DeploymentsPage() {
                     Every VLAN ID must match from the SonicWall subinterface, through the NETGEAR switch, to the UniFi AP uplink and SSID.
                   </figcaption>
                 </figure>
+
+                <CodeSnippet
+                  title="VLAN plan sketch"
+                  language="illustrative"
+                  note="Illustrative pattern only. IDs must match on the SonicWall subinterfaces, the switch trunk, and the AP uplink; confirm 802.1Q support on the exact switch model. Not a copy-and-paste template."
+                  code={`# Topology 2: VLAN IDs must agree at every hop.
+#
+#   VLAN 10  staff        192.0.2.0/24      untagged on staff ports
+#   VLAN 20  servers      198.51.100.0/24   untagged on server ports
+#   VLAN 30  cameras/iot  203.0.113.0/24    untagged on camera ports
+#   VLAN 40  payment      192.0.2.128/25    untagged on terminal ports
+#   VLAN 50  guest        192.0.2.192/26    SSID-mapped only, no wired ports
+#
+#   Switch uplink to SonicWall: tagged member of 10, 20, 30, 40, 50.
+#   AP uplink to switch:        tagged member of 10 and 50 only.
+#   Native VLAN: assigned deliberately; never the management VLAN.`}
+                />
 
                 <div className="mt-8">
                   <Tradeoffs
@@ -428,6 +491,27 @@ export default function DeploymentsPage() {
                     intentionally omitted.
                   </figcaption>
                 </figure>
+
+                <CodeSnippet
+                  title="Least-privilege voice policy sketch"
+                  language="illustrative"
+                  note="Illustrative pattern only. Signaling and media ports come from the selected platform and carrier documentation; conventional SIP ports are not an authorization policy. Not a copy-and-paste template."
+                  code={`# Voice VLAN -> pbx.example / sbc.example
+#   allow  tcp/5061                 # SIP over TLS: authenticated signaling
+#   allow  udp/<media-range>        # media range from the platform document
+#   deny   everything else, log
+#
+# Voice VLAN -> dns.example, ntp.example, provisioning.example
+#   allow  udp/53, udp/123, tcp/443
+#   deny   everything else, log
+#
+# Voice VLAN -> staff, server, iot, management VLANs
+#   deny   all                      # no routine dependency
+#
+# Notes: SIP/TLS does not encrypt RTP by itself; confirm SRTP
+# separately. A phone can register while audio fails one way:
+# signaling worked, the media path did not.`}
+                />
               </CardContent>
             </Card>
 
@@ -667,6 +751,27 @@ export default function DeploymentsPage() {
                     </ul>
                   </article>
                 </div>
+
+                <CodeSnippet
+                  title="Nextiva-to-firewall translation sketch"
+                  language="illustrative"
+                  note="Illustrative pattern only. Build every object from Nextiva's current documents for the exact purchased service, and recheck them on every material change. Not a copy-and-paste template."
+                  code={`# 1. Named objects from Nextiva's CURRENT documents:
+#      nextiva-voice.example   signaling destinations
+#      nextiva-media.example   media destinations
+#      voice-signaling         tcp/5061 (per purchased service)
+#
+# 2. Voice zone -> WAN
+#      allow  voice-vlan -> nextiva-voice.example : voice-signaling
+#      allow  voice-vlan -> nextiva-media.example : platform media range
+#      deny   voice-vlan -> any : any            # log
+#
+# 3. Firewall behavior (Nextiva SonicWall guidance):
+#      - disable SIP ALG / SIP transformations
+#      - enable Consistent NAT; remove double NAT
+#      - UDP inactivity timeout ~90s, DSCP 46, 802.1p priority 6
+#        (apply only after model, firmware, and QoS-path validation)`}
+                />
 
                 <aside className="mt-8 rounded-xl border border-amber-500/30 bg-amber-500/10 p-6" role="note">
                   <h4 className="flex items-center gap-3 text-xl font-bold text-foreground">
@@ -930,6 +1035,30 @@ export default function DeploymentsPage() {
                   </figcaption>
                 </figure>
 
+                <CodeSnippet
+                  title="Payment-zone policy sketch"
+                  language="illustrative"
+                  note="Illustrative pattern only. Destinations come from the processor's current implementation documentation for the exact service purchased; take card-data scoping decisions to a qualified assessor. Not a copy-and-paste template."
+                  code={`# Payment VLAN -> processor.example
+#   allow  tcp/443                # authorization, settlement, batch close
+#   deny   everything else, log
+#
+# Payment VLAN -> terminal-mgmt.example
+#   allow  tcp/443                # approved updates, key-management functions
+#   deny   everything else, log
+#
+# Payment VLAN -> dns.example, ntp.example
+#   allow  udp/53, udp/123        # no general internal reachability
+#
+# Internet -> payment VLAN
+#   deny   all                    # no port forwards, no published management,
+#                                 # no standing vendor tunnels
+#
+# Payment VLAN -> staff, server, guest, iot VLANs
+#   deny   all                    # any exception is a scope change with
+#                                 # a named owner and review date`}
+                />
+
                 <div className="mt-8 grid gap-5 md:grid-cols-2">
                   <article className="rounded-xl border border-border bg-muted/40 p-6">
                     <ShieldCheck className="mb-4 h-8 w-8 text-primary" aria-hidden="true" />
@@ -1151,6 +1280,25 @@ export default function DeploymentsPage() {
                     This is a conceptual redundancy map, not a cabling plan. Follow the exact HA, stacking, power, and uplink prerequisites for each selected SKU.
                   </figcaption>
                 </figure>
+
+                <CodeSnippet
+                  title="Resilience verification sketch"
+                  language="illustrative"
+                  note="Illustrative verification pattern only. Validate against the exact SKU, firmware, and licensing before treating any path as deployable."
+                  code={`# WAN failover:  unplug the primary ISP -> traffic moves to the
+#                secondary; restore it -> traffic returns (or stays,
+#                per the configured policy).
+#
+# Firewall HA:   power off the active unit -> the standby takes over;
+#                session state survives only where the license and
+#                model support stateful synchronization.
+#
+# Switch stack:  remove one stack member -> management and forwarding
+#                continue on the survivors; LAG members share the load.
+#
+# AP coverage:   power off AP A -> clients roam to AP B. That is
+#                coverage and roaming, not automatic AP high availability.`}
+                />
 
                 <div className="mt-8">
                   <Tradeoffs

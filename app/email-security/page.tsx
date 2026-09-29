@@ -1366,6 +1366,29 @@ max_age: 86400`}
                   />
                 </div>
               </div>
+              <figure className="mt-8 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                <a href="/dmarc-reader-architecture.png" target="_blank" rel="noreferrer" className="block bg-muted/40 px-6 py-8">
+                  <img
+                    src="/dmarc-reader-architecture.png"
+                    alt="DMARC-Aggregate-Reader architecture: folder selection starts a parse worker that discovers and parses XML report files into records, then renders summary cards and a searchable table with per-record detail views"
+                    className="mx-auto h-auto w-full max-w-xl rounded-lg border border-border bg-white shadow-sm"
+                    loading="lazy"
+                  />
+                </a>
+                <figcaption className="border-t border-border px-6 py-4 text-sm leading-relaxed text-muted-foreground">
+                  DMARC-Aggregate-Reader pipeline, from folder selection to report inspection. Select the diagram to
+                  view it full size. Source:{" "}
+                  <a
+                    href="https://github.com/PaulinoTech1/DMARC-Aggregate-Reader"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    PaulinoTech1/DMARC-Aggregate-Reader
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </figcaption>
+              </figure>
             </div>
 
             <div className="mt-12 grid gap-8 lg:grid-cols-2">

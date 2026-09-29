@@ -1374,6 +1374,43 @@ export default function DeploymentsPage() {
           </div>
         </section>
 
+        <section className="bg-card px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="pipeline-heading">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-10 max-w-3xl">
+              <h2 id="pipeline-heading" className="text-3xl font-bold text-foreground">Segmentation as code: the VLAN pipeline</h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">
+                The topologies above are validated designs. The engineering behind them is declared once as topology
+                intent, rendered deterministically into switch configs, validated offline, and enforced with Ansible
+                drift audits. Device authorization comes from Intune and Entra ID compliance through RADIUS and NAC,
+                so only compliant devices land on the right VLAN.
+              </p>
+            </div>
+            <figure className="overflow-hidden rounded-2xl border border-border bg-background shadow-lg">
+              <a href="/vlan-segmentation-pipeline.png" target="_blank" rel="noreferrer" className="block bg-muted/40 px-4 py-6 sm:px-8">
+                <img
+                  src="/vlan-segmentation-pipeline.png"
+                  alt="VLAN segmentation pipeline: Intune and Entra ID authorization feeds a RADIUS/NAC adapter; offline automation validates topology intent and deterministically renders Cisco IOS configs; Ansible playbooks enforce VLANs and audit drift on IOS XE devices"
+                  className="mx-auto h-auto w-full rounded-lg border border-border bg-white shadow-sm"
+                  loading="lazy"
+                />
+              </a>
+              <figcaption className="border-t border-border px-6 py-4 text-sm leading-relaxed text-muted-foreground">
+                Architecture of the VLAN segmentation repo, from authorization and intent to rendered configs and
+                enforced state. Select the diagram to view it full size. Source:{" "}
+                <a
+                  href="https://github.com/PaulinoTech1/Vlan-segementation"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-primary hover:underline"
+                >
+                  PaulinoTech1/Vlan-segementation
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
         <section className="px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="sources-heading">
           <div className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-6 sm:p-8">
             <h2 id="sources-heading" className="mb-3 text-2xl font-bold text-foreground">Verified standards and vendor references</h2>
